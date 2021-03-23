@@ -65,13 +65,29 @@ async function main() {
         if(tableFooter !== null) tableFooter.remove();
     });
 
-    console.log('Taking a screenshot');
+    console.log('Taking e-klase screenshot');
     await page.screenshot({path: 'screenshot.png'})
+
+    console.log('Rendering time.png')
+    const timePage = await browser.newPage();
+    await timePage.setViewport({
+        width: 300,
+        height: 50,
+        deviceScaleFactor: 1,
+    });
+    let time = new Date().toLocaleString();
+    let html = '<p style="font-weight: bold; font-size: 170%;">'+time+'</p>';
+    await timePage.setContent(html);
+    await timePage.screenshot({path: 'time.png'});
     
     console.log('Closing the browser');
     await browser.close();
 
-    console.log('Drawing image');
+    console.log('Merging screenshot with time');
+    let timeX = (images("screenshot.png").width()-images("time.png").width())/2;
+    images("screenshot.png").draw(images("time.png"), timeX, 20).save("screenshot.png");
+
+    console.log('Drawing wallpaper');
     let padding = 10;
     let x = images("wallpaper.png").width()-images("screenshot.png").width()-padding;
     let y = padding;
@@ -79,6 +95,9 @@ async function main() {
 
     console.log('Setting wallpaper');
     await wallpaper.set('output.png');
+
+    console.log('Done');
 }
 
 main();
+setInterval(main, 120*1000);
