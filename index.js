@@ -73,12 +73,12 @@ async function main() {
 
     console.log('Drawing image');
     let padding = 10;
-    let x = images("wallpaper.jpg").width()-images("screenshot.png").width()-padding;
+    let x = images("wallpaper.png").width()-images("screenshot.png").width()-padding;
     let y = padding;
-    images("wallpaper.jpg").draw(images("screenshot.png"), x, y).save("output.jpg");
+    images("wallpaper.png").draw(images("screenshot.png"), x, y).save("output.png");
 
     console.log('Setting wallpaper');
-    await wallpaper.set('output.jpg');
+    await wallpaper.set('output.png');
 }
 
 main();
