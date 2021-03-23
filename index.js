@@ -15,8 +15,20 @@ async function main() {
     console.log('Opening a new page');
     const page = await browser.newPage();
 
-    console.log('Setting viewport');
-    await page.setViewport({ width: 760, height: 1400 })
+    let device = {
+        name: 'custom device',
+        userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1',
+        viewport: {
+            width: 760,
+            height: 1400,
+            deviceScaleFactor: 1.5,
+            isMobile: false,
+            hasTouch: false,
+            isLandscape: false
+        }
+    }
+    console.log('Setting viewport, scale factor');
+    await page.emulate(device);
 
     console.log('Setting request interception');
     await page.setRequestInterception(true);
