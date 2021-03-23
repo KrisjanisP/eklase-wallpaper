@@ -1,9 +1,6 @@
 const config = require('./config');
-const fetch = require('node-fetch');
 const { URLSearchParams } = require('url');
-const fs = require('fs');
 const puppeteer = require("puppeteer");
-const { request } = require('http');
 
 async function main() {
     console.log('Launching browser');
@@ -31,7 +28,6 @@ async function main() {
     params.append('v', '15');
     params.append('UserName', config.eklase.user_name);
     params.append('Password', config.eklase.password);
-    console.log(config.eklase.login_url+'?'+params.toString());
     const response = await page.goto(config.eklase.login_url+'?'+params.toString());
     
     console.log('Removing useless stuff');

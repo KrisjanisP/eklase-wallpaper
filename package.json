@@ -9,7 +9,6 @@
   "author": "Krišjānis Petručeņa",
   "license": "ISC",
   "dependencies": {
-    "needle": "^2.6.0",
     "puppeteer": "^8.0.0"
   }
 }
