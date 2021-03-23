@@ -1,6 +1,8 @@
 const config = require('./config');
 const { URLSearchParams } = require('url');
 const puppeteer = require("puppeteer");
+const images = require("images");
+const wallpaper = require('wallpaper');
 
 async function main() {
     console.log('Launching browser');
@@ -30,23 +32,25 @@ async function main() {
     params.append('Password', config.eklase.password);
     const response = await page.goto(config.eklase.login_url+'?'+params.toString());
     
+    await Promise.race([
+        page.waitForSelector(".diary-container .row"),
+        page.waitForSelector(".diary-container h2"),
+        page.waitForSelector(".dashboard-news")
+    ]);
+
     console.log('Removing useless stuff');
     await page.evaluate(() => {
         var newsSection = document.querySelector(".dashboard-news");
         if(newsSection !== null) newsSection.remove();
-        else console.log("News section doesn't exist");
-
+        
         var footer = document.querySelector("footer");
         if(footer !== null) footer.remove();
-        else console.log("Footer doesn't exist");
 
         var tableHeader = document.querySelector(".diary-container .row");
         if(tableHeader !== null) tableHeader.remove();
-        else console.log("Table header doesn't exist");
 
         var tableFooter = document.querySelector(".diary-container h2");
         if(tableFooter !== null) tableFooter.remove();
-        else console.log("Table footer doesn't exist");
     });
 
     console.log('Taking a screenshot');
@@ -54,6 +58,15 @@ async function main() {
     
     console.log('Closing the browser');
     await browser.close();
+
+    console.log('Drawing image');
+    let padding = 10;
+    let x = images("wallpaper.jpg").width()-images("screenshot.png").width()-padding;
+    let y = padding;
+    images("wallpaper.jpg").draw(images("screenshot.png"), x, y).save("output.jpg");
+
+    console.log('Setting wallpaper');
+    await wallpaper.set('output.jpg');
 }
 
 main();

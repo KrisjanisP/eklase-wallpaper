@@ -9,6 +9,8 @@
   "author": "Krišjānis Petručeņa",
   "license": "ISC",
   "dependencies": {
-    "puppeteer": "^8.0.0"
+    "images": "^3.2.3",
+    "puppeteer": "^8.0.0",
+    "wallpaper": "^4.4.2"
   }
 }

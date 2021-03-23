@@ -1,3 +1,9 @@
+# Ignore the generated wallpaper
+output.jpg
+
+# Ignore the screenshot
+screenshot.png
+
 # Logs
 logs
 *.log
