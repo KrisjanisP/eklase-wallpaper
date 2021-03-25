@@ -100,7 +100,7 @@ async function main() {
     await fetchTimeScreenshot(browser);
 
     console.log('Closing the browser');
-    //await browser.close();
+    await browser.close();
 
     console.log('Merging screenshot with time');
     let eklaseScreenshot = images("images/screenshot.png");
