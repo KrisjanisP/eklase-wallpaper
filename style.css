@@ -1,0 +1,76 @@
+:root {
+    --height: 40px;
+}
+
+.dashboard-news{
+    display: none !important;   
+}
+
+footer{
+    display: none !important;
+}
+
+.diary-container .row{
+    display: none !important;
+}
+
+.diary-container h2{
+    display: none !important;
+}
+
+.lesson-title{
+    height: 30px !important;
+    height: var(--height) !important;
+    line-height: 35px !important;
+    line-height: calc(var(--height) + 5px) !important;
+}
+
+.dashboard-upper-widgets {
+    margin-bottom: 20px !important;
+}
+
+.actual-lessons 
+.actual-lessons-item.has-content 
+.lesson-title:after, 
+.student-journal-lessons 
+.actual-lessons-item.has-content 
+.lesson-title:after{
+    top: 15px !important;
+    top: calc(var(--height) / 2) !important;
+}
+
+.actual-lessons 
+.actual-lessons-item, 
+.student-journal-lessons 
+.actual-lessons-item{
+    max-height: 30px;
+    max-height: var(--height);
+}
+
+.dashboard-widget {
+    max-height: 30px;
+    max-height: var(--height);
+}
+
+.dashboard-widget .widget-header {
+    min-height: 30px !important;
+    min-height: var(--height) !important;
+    line-height: 30px !important;
+    line-height: var(--height) !important;
+}
+
+@media only screen and (max-width: 767px){
+    .dashboard-widget .widget-header:after {
+        top: 15px !important;
+        top: calc(var(--height) / 2) !important;
+    }
+}
+
+.dashboard-widget {
+    margin-bottom: 10px !important;
+}
+
+.actual-lessons .container {
+    padding-left: 0px;
+    padding-right: 0px;
+}

@@ -1,5 +1,8 @@
 # Ignore the generated wallpaper
-output.jpg
+output.png
+screenshot.png
+time.png
+wallpaper.png
 
 # Ignore the screenshot
 screenshot.png

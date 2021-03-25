@@ -1,5 +1,5 @@
 # EklaseWallpaperNodeJS
-![alt text](output.png)
+![alt text](images/preview.png)
 
 ## Under the hood
 The project uses puppeteer to
