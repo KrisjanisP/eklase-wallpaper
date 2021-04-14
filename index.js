@@ -4,6 +4,7 @@ const puppeteer = require("puppeteer");
 const images = require("images");
 const wallpaper = require('wallpaper');
 const fs = require('fs');
+const path = require('path');
 
 async function timeout(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -50,8 +51,8 @@ async function fetchEklaseScreenshot(browser){
     ]);
 
     console.log('Applying style.css');
-    let cssCode = fs.readFileSync('style.css',{encoding:'utf8', flag:'r'});
-    console.log(cssCode);
+    let cssCode = fs.readFileSync(path.join(__dirname, 'style.css'),{encoding:'utf8', flag:'r'});
+    //console.log(cssCode);
     await page.evaluate((cssCode) => {
         function addCss(cssCode) {
             var styleElement = document.createElement("style");
@@ -70,7 +71,7 @@ async function fetchEklaseScreenshot(browser){
     await timeout(config.timeout);
 
     console.log('Taking e-klase screenshot');
-    await page.screenshot({path: 'images/screenshot.png'})
+    await page.screenshot({path: path.join(__dirname, 'images/screenshot.png')})
 }
 
 async function fetchTimeScreenshot(browser){
@@ -84,7 +85,7 @@ async function fetchTimeScreenshot(browser){
     let time = new Date().toLocaleString();
     let html = '<p style="font-weight: bold; font-size: 170%;">'+time+'</p>';
     await timePage.setContent(html);
-    await timePage.screenshot({path: 'images/time.png'});
+    await timePage.screenshot({path: path.join(__dirname,'images/time.png')});
     
 }
 
@@ -103,25 +104,25 @@ async function main() {
     await browser.close();
 
     console.log('Merging screenshot with time');
-    let eklaseScreenshot = images("images/screenshot.png");
-    let timeScreenshot = images("images/time.png");
+    let eklaseScreenshot = images(path.join(__dirname,"images/screenshot.png"));
+    let timeScreenshot = images(path.join(__dirname,"images/time.png"));
 
     let timeX = (eklaseScreenshot.width()-timeScreenshot.width())/2;
     eklaseScreenshot
         .draw(timeScreenshot, timeX, 20);
 
     console.log('Drawing wallpaper');
-    let wallpaperImage = images("images/wallpaper.png");
+    let wallpaperImage = images(path.join(__dirname,"images/wallpaper.png"));
     let padding = 10;
     let x = wallpaperImage.width()-eklaseScreenshot.width()-padding;
     let y = padding;
-    wallpaperImage.draw(eklaseScreenshot, x, y).save("images/output.png");
+    wallpaperImage.draw(eklaseScreenshot, x, y).save(path.join(__dirname,"images/output.png"));
 
     console.log('Setting wallpaper');
-    await wallpaper.set('images/output.png');
+    await wallpaper.set(path.join(__dirname,'images/output.png'));
 
     console.log('Done');
 }
 
 main();
-setInterval(main, config.updateInterval*60*1000);
+//setInterval(main, config.updateInterval*60*1000);
