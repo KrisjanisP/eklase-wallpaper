@@ -93,7 +93,7 @@ async function main() {
     console.log('Launching browser');
     const browser = await puppeteer.launch({
         args: ["--enable-features=NetworkService", "--no-sandbox"],
-        headless: true,
+        headless: config.headless,
         ignoreHTTPSErrors: true
     });
 
